@@ -6,7 +6,7 @@ import { GoogleGenAI } from '@google/genai';
 const app = express();
 const upload = multer();
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-3-flash-preview";
 app.use(express.json());
 const port = 3000;
 app.listen(port, () => console.log(`Server ready on http://localhost:${port}`));
@@ -60,6 +60,27 @@ app.post('/generate-from-audio', upload.single('audio'), async (req, res) => {
             contents: [
                 { text: prompt ?? "Tolong buat transkrip dari rekaman berikut:", type: "text" },
                 { inlineData: { mimeType: req.file.mimetype, data: base64audio } }
+            ]
+        });
+        res.status(200).json({ result: response.text });
+
+    } catch (e) {
+        console.log(e)
+        res.status(500).json({ error: e.message });
+    }
+
+
+});
+app.post('/generate-from-image', upload.single('image'), async (req, res) => {
+    try {
+        const { prompt } = req.body;
+        const base64image = req.file.buffer.toString("base64")
+
+        const response = await ai.models.generateContent({
+            model: GEMINI_MODEL,
+            contents: [
+                { text: prompt, type: "text" },
+                { inlineData: { mimeType: req.file.mimetype, data: base64image } }
             ]
         });
         res.status(200).json({ result: response.text });

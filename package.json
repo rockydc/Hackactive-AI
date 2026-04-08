@@ -1,0 +1,26 @@
+{
+  "name": "hackactive-ai",
+  "version": "1.0.0",
+  "description": "\"# Hackactive-AI\"",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rockydc/Hackactive-AI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rockydc/Hackactive-AI/issues"
+  },
+  "homepage": "https://github.com/rockydc/Hackactive-AI#readme",
+  "dependencies": {
+    "@google/genai": "^1.48.0",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "multer": "^2.1.1"
+  }
+}
